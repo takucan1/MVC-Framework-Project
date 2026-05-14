@@ -1,0 +1,17 @@
+{
+    "name": "student/egg-inventory",
+    "description": "PHP MVC Framework — Egg Inventory MVP",
+    "type": "project",
+    "require": {
+        "php": ">=8.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
