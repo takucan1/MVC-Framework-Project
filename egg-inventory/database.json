@@ -1,0 +1,28 @@
+[
+    {
+        "type": "Chicken Egg",
+        "quantity": 12
+    },
+    {
+        "type": "Duck Egg",
+        "quantity": 6
+    },
+    {
+        "type": "Quail Egg",
+        "quantity": 30
+    },
+    {
+        "type": "Quail Egg",
+        "quantity": "100"
+    },
+    {
+        "type": "awdwad",
+        "quantity": "123123",
+        "date": "2026-05-19"
+    },
+    {
+        "type": "Brown Egg",
+        "quantity": "123",
+        "date": "2026-05-19"
+    }
+]

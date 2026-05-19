@@ -1,48 +1,41 @@
 <?php
-
-declare(strict_types=1);
-
 namespace App\Models;
 
-use Core\Database\Model;
-use Core\Database\QueryBuilder;
+use Core\Database\Connection;
 
-/**
- * Concrete egg repository using SQLite via QueryBuilder.
- * LSP: Fully substitutable for EggRepositoryInterface.
- * SRP: Data-access only — never renders HTML or handles HTTP.
- */
-class Egg extends Model implements EggRepositoryInterface
-{
-    protected string $table = 'eggs';
+class Egg {
+    private Connection $db;
 
-    public function __construct(QueryBuilder $query)
-    {
-        parent::__construct($query);
+    public function __construct(Connection $db) {
+        $this->db = $db;
     }
 
-    public function findByType(string $type): array
-    {
-        return $this->query
-            ->table($this->table)
-            ->where('egg_type', $type)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+    public function all(): array {
+        return $this->db->read();
     }
 
-    public function stockSummary(): array
-    {
-        $pdo  = $this->query->table($this->table); // just to get the builder
-        // Raw aggregate query via the underlying PDO from the query builder
-        // We keep logic here (SRP: model owns domain queries)
-        return [];  // overridden via direct PDO in EggRepository below
+    public function find(int $id): ?array {
+        $eggs = $this->db->read();
+        return $eggs[$id] ?? null;
     }
 
-    public function all(): array
-    {
-        return $this->query
-            ->table($this->table)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+    public function create(array $data): void {
+        $eggs = $this->db->read();
+        $data['date'] = date('Y-m-d');
+        $eggs[] = $data;
+        $this->db->write($eggs);
+    }
+
+    public function update(int $id, array $data): void {
+        $eggs = $this->db->read();
+        $data['date'] = date('Y-m-d');
+        $eggs[$id] = $data;
+        $this->db->write($eggs);
+    }
+
+    public function delete(int $id): void {
+        $eggs = $this->db->read();
+        unset($eggs[$id]);
+        $this->db->write($eggs);
     }
 }

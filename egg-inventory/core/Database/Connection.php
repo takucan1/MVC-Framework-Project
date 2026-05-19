@@ -1,29 +1,21 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Core\Database;
 
-use PDO;
+class Connection {
+    private string $file;
 
-/**
- * Holds the active PDO connection.
- * OCP: Never modified when a new DatabaseDriver is introduced.
- * DIP: Depends on the DatabaseDriver abstraction, not a concrete driver.
- */
-class Connection
-{
-    private readonly PDO $pdo;
-
-    public function __construct(
-        private readonly DatabaseDriver $driver,
-        private readonly array          $config
-    ) {
-        $this->pdo = $this->driver->connect($this->config);
+    public function __construct(string $file) {
+        $this->file = $file;
+        if (!file_exists($file)) {
+            file_put_contents($file, json_encode([]));
+        }
     }
 
-    public function pdo(): PDO
-    {
-        return $this->pdo;
+    public function read(): array {
+        return json_decode(file_get_contents($this->file), true);
+    }
+
+    public function write(array $data): void {
+        file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
     }
 }
