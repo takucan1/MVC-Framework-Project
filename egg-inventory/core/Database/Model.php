@@ -1,53 +1,30 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Core\Database;
 
-/**
- * Base model that bridges QueryBuilder with the Findable + Persistable interfaces.
- * SRP: Provides data-access behaviour. Never renders HTML.
- */
-abstract class Model implements Findable, Persistable
-{
-    protected string $table       = '';
-    protected string $primaryKey  = 'id';
+abstract class Model {
+    protected QueryBuilder $qb;
 
-    public function __construct(protected readonly QueryBuilder $query) {}
-
-    public function all(): array
-    {
-        return $this->query->table($this->table)->get();
+    public function __construct(QueryBuilder $qb) {
+        $this->qb = $qb;
     }
 
-    public function find(int|string $id): ?array
-    {
-        return $this->query
-            ->table($this->table)
-            ->where($this->primaryKey, $id)
-            ->first();
+    public function all(): array {
+        return $this->qb->all();
     }
 
-    public function save(array $data): int|string
-    {
-        return $this->query->table($this->table)->insert($data);
+    public function find(int $id): ?array {
+        return $this->qb->find($id);
     }
 
-    public function update(int|string $id, array $data): bool
-    {
-        $affected = $this->query
-            ->table($this->table)
-            ->where($this->primaryKey, $id)
-            ->update($data);
-        return $affected > 0;
+    public function create(array $data): void {
+        $this->qb->insert($data);
     }
 
-    public function delete(int|string $id): bool
-    {
-        $affected = $this->query
-            ->table($this->table)
-            ->where($this->primaryKey, $id)
-            ->delete();
-        return $affected > 0;
+    public function update(int $id, array $data): void {
+        $this->qb->update($id, $data);
+    }
+
+    public function delete(int $id): void {
+        $this->qb->delete($id);
     }
 }
