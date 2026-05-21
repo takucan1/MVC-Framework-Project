@@ -24,5 +24,10 @@
         "type": "Brown Egg",
         "quantity": "123",
         "date": "2026-05-19"
+    },
+    {
+        "type": "Quail Egg",
+        "quantity": "1500",
+        "date": "2026-05-20"
     }
 ]
