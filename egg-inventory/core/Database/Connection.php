@@ -1,21 +1,26 @@
 <?php
 namespace Core\Database;
 
+use PDO;
+use PDOException;
+
 class Connection {
-    private string $file;
+    private static ?PDO $pdo = null;
 
-    public function __construct(string $file) {
-        $this->file = $file;
-        if (!file_exists($file)) {
-            file_put_contents($file, json_encode([]));
+    public static function getInstance(): PDO {
+        if (self::$pdo === null) {
+            $config = require __DIR__ . '/../../config/database.php';
+            try {
+                self::$pdo = new PDO(
+                    "mysql:host={$config['host']};dbname={$config['dbname']}",
+                    $config['username'],
+                    $config['password']
+                );
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Database connection failed: " . $e->getMessage());
+            }
         }
-    }
-
-    public function read(): array {
-        return json_decode(file_get_contents($this->file), true);
-    }
-
-    public function write(array $data): void {
-        file_put_contents($this->file, json_encode($data, JSON_PRETTY_PRINT));
+        return self::$pdo;
     }
 }
