@@ -1,41 +1,34 @@
 <?php
 namespace App\Models;
 
-use Core\Database\Connection;
+use Core\Database\QueryBuilder;
 
 class Egg {
-    private Connection $db;
+    private QueryBuilder $db;
+    private string $table = 'eggs';
 
-    public function __construct(Connection $db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->db = new QueryBuilder();
     }
 
     public function all(): array {
-        return $this->db->read();
+        return $this->db->all($this->table);
     }
 
     public function find(int $id): ?array {
-        $eggs = $this->db->read();
-        return $eggs[$id] ?? null;
+        return $this->db->find($this->table, $id);
     }
 
-    public function create(array $data): void {
-        $eggs = $this->db->read();
-        $data['date'] = date('Y-m-d');
-        $eggs[] = $data;
-        $this->db->write($eggs);
+    public function create(array $data): int {
+        return $this->db->insert($this->table, $data);
     }
 
-    public function update(int $id, array $data): void {
-        $eggs = $this->db->read();
-        $data['date'] = date('Y-m-d');
-        $eggs[$id] = $data;
-        $this->db->write($eggs);
+    public function update(int $id, array $data): bool {
+        return $this->db->update($this->table, $id, $data);
     }
 
-    public function delete(int $id): void {
-        $eggs = $this->db->read();
-        unset($eggs[$id]);
-        $this->db->write($eggs);
-    }
+    public function delete(int $id): bool {
+    return $this->db->delete($this->table, $id);
+}
+
 }

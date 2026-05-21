@@ -3,7 +3,8 @@
 <a href="/eggs/create">Add Egg</a>
 
 <ul>
-<?php foreach ($eggs as $id => $egg): ?>
+<?php foreach ($eggs as $egg): ?>
+    <?php $id = (int) $egg['id']; ?>
     <li>
         <strong><?= htmlspecialchars($egg['type']) ?></strong> 
         — Quantity: <?= htmlspecialchars($egg['quantity']) ?>
