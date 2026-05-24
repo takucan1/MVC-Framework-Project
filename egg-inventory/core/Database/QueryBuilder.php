@@ -34,10 +34,10 @@ class QueryBuilder {
     $data['id'] = $id;
     $stmt = $this->pdo->prepare("UPDATE {$table} SET {$set} WHERE id = :id");
     return $stmt->execute($data);
-}
+    }
 
-public function delete(string $table, int $id): bool {
-    $stmt = $this->pdo->prepare("DELETE FROM {$table} WHERE id = :id");
-    return $stmt->execute(['id' => $id]);
-}
+    public function delete(string $table, int $id): bool {
+        $stmt = $this->pdo->prepare("DELETE FROM {$table} WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
 }
