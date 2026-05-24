@@ -26,14 +26,36 @@ class EggController {
     }
 
     public function create(Request $request): void {
-        if ($request->method() === 'POST') {
-            $this->egg->create(['type' => $request->input('type'), 'quantity' => $request->input('quantity')]);
-            header("Location: /eggs");
-            exit;
-        } else {
-            $this->view->render('eggs/create');
+    if ($request->method() === 'POST') {
+        $type = trim($request->input('type'));
+        $quantity = trim($request->input('quantity'));
+
+        $errors = [];
+
+        if ($type === '') {
+            $errors[] = 'Type field cannot be empty.';
         }
+
+        if ($quantity === '' || !is_numeric($quantity) || (int)$quantity <= 0) {
+            $errors[] = 'Quantity must be a positive number.';
+        }
+
+        if (empty($errors)) {
+            $this->egg->create([
+                'type' => $type,
+                'quantity' => (int)$quantity
+            ]);
+            header('Location: /eggs');
+            exit;
+        }
+
+        // Render form again with errors
+        $this->view->render('eggs/create', ['errors' => $errors]);
+    } else {
+        $this->view->render('eggs/create');
     }
+    }
+
 
     public function edit(Request $request): void {
         $id = (int)$request->input('id');

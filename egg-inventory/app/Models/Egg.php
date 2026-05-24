@@ -20,8 +20,13 @@ class Egg {
     }
 
     public function create(array $data): int {
-        return $this->db->insert($this->table, $data);
+    if (!isset($data['type']) || $data['type'] === '' ||
+        !isset($data['quantity']) || !is_int($data['quantity']) || $data['quantity'] <= 0) {
+        throw new \InvalidArgumentException("Invalid egg data provided.");
     }
+    return $this->db->insert($this->table, $data);
+    }
+
 
     public function update(int $id, array $data): bool {
         return $this->db->update($this->table, $id, $data);
