@@ -72,7 +72,7 @@ The framework is organized into distinct layers:
    cd egg-inventory
 
 2. Install dependencies
-   composer install
+   - composer install
 
 3. Configure database
     <?php
