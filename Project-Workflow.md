@@ -177,7 +177,7 @@ This document describes all workflows in the Egg Inventory application, includin
 This describes how a single HTTP request flows through the entire application:
 
 ### Request Flow Diagram
-
+```
 Browser Request
         ↓
 public/index.php
@@ -213,3 +213,4 @@ Set Response
 View rendered to output buffer
         ↓
 Response sent to browser
+```
