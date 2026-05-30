@@ -2,7 +2,7 @@
 
 A lightweight custom MVC framework built from scratch in PHP, demonstrating core architectural principles with a practical Egg Inventory Management application.
 
-## MVP Application Overview
+# MVP Application Overview
 
 The Egg Inventory Manager is a simple CRUD application for managing egg inventory. 
 Users can:
@@ -20,9 +20,9 @@ This MVP demonstrates the core functionality of the custom MVC framework with a 
 
 ---
 
-## Framework Design Decisions
+# Framework Design Decisions
 
-### 1. Modular Core Architecture
+# 1. Modular Core Architecture
 The framework is organized into distinct layers:
 - **Application**: Entry point that manages the request lifecycle
 - **Http**: Handles routing, requests, and responses
@@ -30,42 +30,42 @@ The framework is organized into distinct layers:
 - **View**: Template rendering engine
 - **Container**: Dependency injection (foundation for future enhancements)
 
-### 2. Routing System
+# 2. Routing System
 - Simple pattern-based routing with HTTP method support (GET, POST)
 - Routes are registered in `routes/web.php`
 - Router resolves URLs to controller actions
 
-### 3. Model-View-Controller Separation
+# 3. Model-View-Controller Separation
 - Models: Handle data persistence and business logic (extends `Model` base class)
 - Controllers: Process requests and coordinate models/views
 - Views: Simple PHP template files in `app/Views/`
 
-### 4. Database Layer
+# 4. Database Layer
 - Custom `Model` class provides ORM-like functionality
 - `QueryBuilder` offers chainable query methods
 - `Connection` manages database interactions
 - Currently supports MySQL
 
-### 5. Middleware Support
+# 5. Middleware Support
 - Framework supports middleware pipeline
 - Middleware can intercept requests before controller execution
 - Extensible through the `MiddlewareInterface`
 
-### 6. Request/Response Objects
+# 6. Request/Response Objects
 - Clean abstraction for HTTP interactions
 - Request extracts input data from `$_GET`, `$_POST`, etc.
 - Response handles output and headers
 
 ---
 
-## Setup Instructions
+# Setup Instructions
 
-### Prerequisites
+# Prerequisites
 - PHP 8.3+
 - MySQL 5.7+
 - Composer
 
-### Installation
+# Installation
 
 1. Navigate to project directory
    ```bash
@@ -100,15 +100,15 @@ The framework is organized into distinct layers:
     - Application will be available at http://localhost:8080/
 
 Routes
-Method  Route	        Controller Action	    Description
-GET	    /	            EggController@index	    Display all eggs (home page)
-GET	    /eggs	        EggController@index	    Display all eggs
-GET	    /eggs/show	    EggController@show	    Display single egg details (requires id parameter)
-GET	    /eggs/create	EggController@create	Show create egg form
-POST    /eggs/create	EggController@create	Store new egg in database
-GET	    /eggs/edit	    EggController@edit	    Show edit form (requires id parameter)
-POST	/eggs/edit	    EggController@edit	    Update egg in database
-GET	    /eggs/delete	EggController@delete	Delete egg from database (requires id parameter)
+Method | Route	        | Controller Action	            Description
+GET	   | /	            | EggController@index	    | Display all eggs (home page)
+GET	   | /eggs	        | EggController@index	    | Display all eggs
+GET	   | /eggs/show	    | EggController@show	    | Display single egg details (requires id parameter)
+GET	   | /eggs/create	| EggController@create	    | Show create egg form
+POST   | /eggs/create	| EggController@create	    | Store new egg in database
+GET	   | /eggs/edit	    | EggController@edit	    | Show edit form (requires id parameter)
+POST   | /eggs/edit	    | EggController@edit	    | Update egg in database
+GET	   | /eggs/delete	| EggController@delete	    | Delete egg from database (requires id parameter)
 
 ___________________________________________________________________________________________________________
 
