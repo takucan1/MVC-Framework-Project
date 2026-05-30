@@ -99,7 +99,9 @@ The framework is organized into distinct layers:
 
     - Application will be available at http://localhost:8080/
 
-Routes
+### Routes
+```
+
 Method | Route	        | Controller Action	            Description
 GET	   | /	            | EggController@index	    | Display all eggs (home page)
 GET	   | /eggs	        | EggController@index	    | Display all eggs
@@ -110,6 +112,7 @@ GET	   | /eggs/edit	    | EggController@edit	    | Show edit form (requires id p
 POST   | /eggs/edit	    | EggController@edit	    | Update egg in database
 GET	   | /eggs/delete	| EggController@delete	    | Delete egg from database (requires id parameter)
 
+```
 ___________________________________________________________________________________________________________
 
 PROJECT FOLDER STRUCTURE
