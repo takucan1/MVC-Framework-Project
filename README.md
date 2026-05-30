@@ -100,7 +100,7 @@ The framework is organized into distinct layers:
     - Application will be available at http://localhost:8080/
 
 ### Routes
-```
+```git 
 
 Method | Route	        | Controller Action	            Description
 GET	   | /	            | EggController@index	    | Display all eggs (home page)
@@ -115,8 +115,8 @@ GET	   | /eggs/delete	| EggController@delete	    | Delete egg from database (req
 ```
 ___________________________________________________________________________________________________________
 
-PROJECT FOLDER STRUCTURE
-
+### PROJECT FOLDER STRUCTURE
+```
 egg-inventory/
 ├── app/
 │   ├── Controllers/       # Request handlers
@@ -133,4 +133,4 @@ egg-inventory/
 ├── routes/                # Route definitions
 ├── vendor/                # Composer dependencies
 └── composer.json          # PHP dependencies
-
+```
